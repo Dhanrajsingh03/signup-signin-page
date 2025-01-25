@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Profile Page</title>
+    <style>
+        /* Global styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7fafc;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        /* Navbar */
+        .navbar {
+            box-shadow: 0 0 2px black;
+            display: flex;
+            justify-content: center;
+            background-color: #3498db;
+            color: white;
+            padding: 12px 0;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .navbar a {
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            font-size: 1rem;
+            margin: 5px 10px;
+            transition: background-color 0.3s ease;
+            border-radius: 6px;
+        }
+
+        .navbar a:hover,
+        .navbar a.active {
+            background-color: #2980b9;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .section {
+            display: none;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* User Data Section */
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .profile-info img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-info div {
+            text-align: center;
+            font-size: 1rem;
+            color: #2c3e50;
+        }
+
+        .profile-info div p {
+            margin-bottom: 10px;
+        }
+
+        /* Upload Projects Section */
+        #upload-projects form {
+            display: grid;
+            gap: 15px;
+        }
+
+        #upload-projects input, #upload-projects textarea {
+            padding: 12px;
+            width: 100%;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        #upload-projects input:focus, #upload-projects textarea:focus {
+            border-color: #3498db;
+        }
+
+        #upload-projects button {
+            padding: 12px;
+            background-color: #3498db;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #upload-projects button:hover {
+            background-color: #2980b9;
+        }
+
+        /* All Projects Section */
+        .projects-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: auto;
+            max-height: 180px;
+            object-fit: cover;
+        }
+
+        .project-card .content {
+            padding: 15px;
+        }
+
+        .project-card .content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+
+        .project-card .content p {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+
+        .project-card .content a {
+            display: inline-block;
+            margin-top: 12px;
+            color: #3498db;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: 0.3s ease;
+        }
+
+        .project-card .content a:hover {
+            color: #2980b9;
+        }
+
+        #user-data h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            background-color: #2980b9;
+            border-radius: 5px;
+            box-shadow: 0 0 2px black;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .profile-info {
+                flex-direction: column;
+            }
+
+            .navbar {
+                flex-direction: column;
+            }
+
+            .projects-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar a {
+                font-size: 0.9rem;
+                padding: 6px 10px;
+            }
+
+            .project-card .content h3 {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <a href="#" id="nav-user-data" class="active">User Data</a>
+            <a href="#" id="nav-upload-projects">Upload Projects</a>
+            <a href="#" id="nav-all-projects">All Projects</a>
+            <a href="user.html" id="logout-link">Log Out</a>
+        </div>
+
+        <div class="main-content">
+            <div id="user-data" class="section active">
+                <h2>Your Information</h2>
+                <div class="profile-info">
+                    <img id="profile-picture" src="default-profile.jpg" alt="Profile Picture">
+                    <div>
+                        <div><strong>Name: </strong><span id="loggedUserFName"></span></div>
+                        <div><strong>Email: </strong><span id="loggedUserEmail"></span></div>
+                        <div><strong>Branch: </strong><span id="loggedUserBranch"></span></div>
+                        <div><strong>Registration Number: </strong><span id="loggedUserRollNo"></span></div>
+                        <div><strong>Session: </strong><span id="loggedUserSession"></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="upload-projects" class="section">
+                <h2>Upload New Project</h2>
+                <form id="project-form">
+                    <label for="project-title">Project Title:</label>
+                    <input type="text" id="project-title" required>
+
+                    <label for="project-description">Project Description:</label>
+                    <textarea id="project-description" required></textarea>
+
+                    <label for="project-image">Project Image:</label>
+                    <input type="file" id="project-image" accept="image/*">
+
+                    <label for="project-pdf">Project PDF:</label>
+                    <input type="file" id="project-pdf" accept="application/pdf">
+
+                    <button type="submit">Upload Project</button>
+                </form>
+            </div>
+
+            <div id="all-projects" class="section">
+                <h2>All Projects</h2>
+                <div class="projects-list" id="projects-list"></div>
+            </div>
+        </div>
+    </div>
+    <script  type="module" src="project.js"></script>
+    <script type="module" src="profile.js"></script>
+    <script>
+        // Section Navigation (Navbar)
+        const sections = document.querySelectorAll(".section");
+        const navLinks = document.querySelectorAll(".navbar a");
+
+        navLinks.forEach(link => {
+            link.addEventListener("click", function(event) {
+                // Skip the event handling for the "Log Out" link
+                if (link.getAttribute("href") === "user.html") {
+                    return;
+                }
+
+                event.preventDefault();
+
+                // Remove 'active' class from all sections and nav links
+                sections.forEach(section => section.classList.remove("active"));
+                navLinks.forEach(navLink => navLink.classList.remove("active"));
+
+                // Add 'active' class to the clicked section and nav link
+                const targetSection = document.getElementById(link.id.replace('nav-', ''));
+                targetSection.classList.add("active");
+                link.classList.add("active");
+            });
+        });
+    </script>
+</body>
+</html>

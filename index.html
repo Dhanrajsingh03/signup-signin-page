@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login/SignUp-The Sensors</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="icon" href="logo.jpg" type="image/x-icon" />
+    <link rel="stylesheet" href="font-awesome.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="new.js" type="text/javascript"></script>
+    <script type="module" src="firebaseauth.js"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WNE0JC12KY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-WNE0JC12KY');
+    </script>
+
+</head>
+
+<body>
+  
+
+    <section class="header">
+        <video autoplay muted loop plays-inline class="video">
+            <source src="video.mp4" type="video/mp4" />
+        </video>
+        <div class="navigation-container">
+            <div class="help">
+                <a href="home.html"><img src="logo.jpg" alt="help" /></a>
+            </div>
+            <div class="headline">
+                THE SENSORS
+            </div>
+            <div class="navbar">
+                <div class="container">
+                    <div class="btn"><a href="home.html">HOME</a></div>
+                </div>
+                <div class="container">
+                    <div class="btn"><a href="about.html">ABOUT</a></div>
+                </div>
+                <div class="container">
+                    <div class="btn"><a href="project.html">PROJECT</a></div>
+                </div>
+                <div class="container">
+                    <div class="btn"><a href="member.html">MEMBERS</a></div>
+                </div>
+                <div class="container">
+                    <div class="btn"><a href="gallery.html">GALLERY</a></div>
+                </div>
+                <div class="container">
+                    <div class="btn"><a href="contact.html">CONTACT</a></div>
+                </div>
+                <div class="container">
+                    <div class="btn"><a href="user.html">LOG IN</a></div>
+                </div>
+            </div>
+            <div class="mobile-menu-icon">
+                <i class="fa fa-bars" id="hamburger" style="font-size: xx-large; padding-top: 15px"></i>
+                <i class="fa fa-times" style="font-size: xx-large; padding-top: 15px" id="cross"
+                    style="display: none"></i>
+            </div>
+        </div>
+
+        <div class="nav-links">
+            <div class="container"><a href="home.html">HOME</a></div>
+            <div class="container"><a href="about.html">ABOUT</a></div>
+            <div class="container"><a href="project.html">PROJECT</a></div>
+            <div class="container"><a href="member.html">MEMBERS</a></div>
+            <div class="container"><a href="gallery.html">GALLERY</a></div>
+            <div class="container"><a href="contact.html">CONTACT</a></div>
+            <div class="container"><a href="user.html">LOG IN</a></div>
+        </div>
+    </section>
+
+    <!-- Error Container for Offline Status -->
+    <div class="error-container" id="errorContainer">
+        <h1>404 - Internet Connection Lost</h1>
+        <p>It seems like you've lost your internet connection.</p>
+        <button class="retry-btn" onclick="reloadPage()">Reload</button>
+    </div>
+
+    <div class="text-box2">
+        <h1>Login/signup</h1>
+      </div>
+
+    <div class="user-container" id="signup" style="display:none;">
+        <h1 class="form-title">Register</h1>
+        <form method="post" action="">
+          <div id="signUpMessage" class="messageDiv" style="display:none;"></div>
+    
+    
+          <div class="input-group">
+            <i class="fas fa-user"></i>
+            <input type="text" id="fName" placeholder="Full Name" required>
+            <label for="fName">Full Name</label>
+          </div>
+          <div class="input-group">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="rEmail" placeholder="Email" required>
+            <label for="rEmail">Email</label>
+          </div>
+          <div class="input-group">
+            <i class="fas fa-graduation-cap"></i>
+            <input type="text" id="branch" placeholder="Branch" required>
+            <label for="branch">Branch</label>
+          </div>
+          <div class="input-group">
+            <i class="fas fa-id-card"></i>
+            <input type="text" id="rollNo" placeholder="Registration Number" required>
+            <label for="rollNo">Registration Number</label>
+          </div>
+          <div class="input-group">
+            <i class="fas fa-calendar"></i>
+            <input type="text" id="session" placeholder="Session" required>
+            <label for="session">Session</label>
+          </div>
+          <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="rPassword" placeholder="Password (e.g., Abc@123456) 10 Character Long" required 
+                   pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[@]).{10,}$">
+            <label for="rPassword">Password</label>
+          </div>
+          
+          <button class="user-btn" id="submitSignUp">Sign Up</button>
+        </form>
+        
+    
+        <div class="ac-links">
+          <p>Already Have Account ?</p>
+          <button id="signInButton">Sign In</button>
+        </div>
+      </div>
+      
+    
+      <div class="user-container" id="signIn">
+        <h1 class="form-title">Sign In</h1>
+        <form method="post" action="">
+          <div id="signInMessage" class="messageDiv" style="display:none;"></div>
+    
+          <div class="input-group">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="email" placeholder="Email" required>
+            <label for="email">Email</label>
+          </div>
+          <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="password" placeholder="Password" required>
+            <label for="password">Password</label>
+          </div>
+    
+          <button class="user-btn" id="submitSignIn">Sign In</button>
+        </form>
+    
+        <div class="ac-links">
+          <p>Don't have account yet?</p>
+          <button id="signUpButton">Sign Up</button>
+        </div>
+      </div>
+
+
+    <script src="login.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+    <script src="vanilla-tilt.js"></script>
+    <script type="text/javascript" src="error.js"></script>
+    <script src="https://kit.fontawesome.com/16539b20e1.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
